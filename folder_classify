@@ -3,6 +3,7 @@
 rm -rf temp
 mkdir temp 2>/dev/null
 
+#Be careful if the folder has many large files
 for file in "$1"/*
 do
     if [[ $(file -b $file) =~ JPEG ]] || [[ $(file -b $file) =~ PNG ]]; then 
