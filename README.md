@@ -1,5 +1,5 @@
 # Open nsfw model
-This repo contains code for running Not Suitable for Work (NSFW) classification deep neural network Caffe models. Blog [blog](https://yahooeng.tumblr.com/post/151148689421/open-sourcing-a-deep-learning-solution-for) post which describes this experiment in more detail.
+This repo contains code for running Not Suitable for Work (NSFW) classification deep neural network Caffe models. [Blog](https://yahooeng.tumblr.com/post/151148689421/open-sourcing-a-deep-learning-solution-for) post which describes this experiment in more detail.
 
 #### Demo 
 
