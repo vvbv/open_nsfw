@@ -5,3 +5,5 @@ python3\
     --model_def nsfw_model/deploy.prototxt\
     --pretrained_model nsfw_model/resnet_50_1by2_nsfw.caffemodel\
     $1
+
+rm temp.jpg

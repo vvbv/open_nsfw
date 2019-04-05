@@ -1,0 +1,17 @@
+#!/bin/bash
+
+rm -rf temp
+mkdir temp 2>/dev/null
+
+for file in "$1"/*
+do
+    if [[ $(file -b $file) =~ JPEG ]] || [[ $(file -b $file) =~ PNG ]]; then 
+        name=$(basename "$file")
+        mkdir -p temp/$name
+        score=$(./single_classify $file)
+        cp $file temp/$score"_"$name
+        cp $file temp/$name/$name
+        echo $score > temp/$(basename "$file")/result.txt
+    fi
+done
+
