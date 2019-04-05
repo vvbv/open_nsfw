@@ -36,10 +36,7 @@ python classify_nsfw.py --model_def nsfw_model/deploy.prototxt --pretrained_mode
  ```
  
 #### ***Disclaimer***
-The definition of NSFW is subjective and contextual. This model is a general purpose reference model, which can be used for the preliminary filtering of pornographic images. We do not provide guarantees of accuracy of output, rather we make this available for developers to explore and enhance as an open source project. Results can be improved by [fine-tuning](http://caffe.berkeleyvision.org/gathered/examples/finetune_flickr_style.html) the model for your dataset.
-
-#### License
-Code licensed under the [BSD 2 clause license] (https://github.com/BVLC/caffe/blob/master/LICENSE). See LICENSE file for terms.
+The definition of NSFW is subjective and contextual.
 
 #### Contact
 The model was trained by [Jay Mahadeokar](https://github.com/jay-mahadeokar/),  in collaboration with [Sachin Farfade](https://github.com/sachinfarfade/) , [Amar Ramesh Kamat](https://github.com/amar-kamat), [Armin Kappeler](https://github.com/akappeler) and others. Special thanks to Gerry Pesavento for taking the initiative for open-sourcing this model. If you have any queries, please raise an issue and we will get back ASAP.
