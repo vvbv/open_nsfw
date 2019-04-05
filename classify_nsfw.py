@@ -12,6 +12,7 @@ import argparse
 import glob
 import time
 import cv2
+os.environ["GLOG_minloglevel"] = "3"
 import caffe
 
 def caffe_preprocess_and_compute(pimg, caffe_transformer=None, caffe_net=None,
@@ -49,8 +50,7 @@ def caffe_preprocess_and_compute(pimg, caffe_transformer=None, caffe_net=None,
         transformed_image.shape = (1,) + transformed_image.shape
 
         input_name = caffe_net.inputs[0]
-        all_outputs = caffe_net.forward_all(blobs=output_layers,
-                    **{input_name: transformed_image})
+        all_outputs = caffe_net.forward_all( blobs=output_layers, **{input_name: transformed_image} )
 
         outputs = all_outputs[output_layers[0]][0].astype(float)
         return outputs
@@ -92,7 +92,7 @@ def main(argv):
     caffe_transformer.set_mean('data', np.array([104, 117, 123]))  # subtract the dataset-mean value in each channel
     caffe_transformer.set_raw_scale('data', 255)  # rescale from [0, 1] to [0, 255]
     caffe_transformer.set_channel_swap('data', (2, 1, 0))  # swap channels from RGB to BGR
-
+    
     # Classify.
     scores = caffe_preprocess_and_compute(image_data, caffe_transformer=caffe_transformer, caffe_net=nsfw_net, output_layers=['prob'])
 
