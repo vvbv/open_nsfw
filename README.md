@@ -19,14 +19,7 @@ Since images and user generated content dominate the internet today, filtering n
 * Using human moderation for edge cases in combination with the machine learned solution will help improve performance.
 
 #### Description of model
-We trained the model on the dataset with NSFW images as positive and SFW(suitable for work) images as negative. These images were editorially labelled. We cannot release the dataset or other details due to the nature of the data. 
-
-We use [CaffeOnSpark](https://github.com/yahoo/CaffeOnSpark) which is a wonderful framework for distributed learning that brings deep learning to Hadoop and Spark clusters for training models for our experiments. Big thanks to the CaffeOnSpark team!
-
-The deep model was first pretrained on ImageNet 1000 class dataset. Then we finetuned the weights on the NSFW dataset.
-We used the thin resnet 50 1by2 architecture as the pretrained network. The model was generated using [pynetbuilder](https://github.com/jay-mahadeokar/pynetbuilder) tool and replicates the [residual network](https://arxiv.org/pdf/1512.03385v1.pdf) paper's 50 layer network (with half number of filters in each layer).  You can find more details on how the model was generated and trained [here](https://github.com/jay-mahadeokar/pynetbuilder/tree/master/models/imagenet)
-
-Please note that deeper networks, or networks with more filters can improve accuracy. We train the model using a thin residual network architecture, since it provides good tradeoff in terms of accuracy, and the model is light-weight in terms of runtime (or flops) and memory (or number of parameters).
+Trained the model on the dataset with NSFW images as positive and SFW(suitable for work) images as negative. These images were editorially labelled. We cannot release the dataset or other details due to the nature of the data. 
 
 ### Requirements
 - caffe-cpu or caffe-gpu
