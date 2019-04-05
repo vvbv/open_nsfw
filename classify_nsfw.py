@@ -36,10 +36,8 @@ def caffe_preprocess_and_compute(pimg, caffe_transformer=None, caffe_net=None,
         if output_layers is None:
             output_layers = caffe_net.outputs
 
-        #repalce defined resize() by cv2.resize()
         img_data_rs = cv2.resize(pimg,(256,256))
         cv2.imwrite('temp.jpg',img_data_rs)
-        #img_data_rs = resize_image(pimg, sz=(256, 256))
         image = caffe.io.load_image('temp.jpg')
 
         H, W, _ = image.shape
