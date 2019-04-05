@@ -24,7 +24,7 @@ Trained the model on the dataset with NSFW images as positive and SFW(suitable f
 
 We will get the NSFW score returned:
 ```
-NSFW score:   0.14057905972
+0.14057905972
 ``` 
 #### Running the model
 To run this model, please install [Caffe](https://github.com/BVLC/caffe) and its python extension and make sure pycaffe is available in your PYTHONPATH.
