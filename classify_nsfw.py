@@ -19,8 +19,8 @@ def caffe_preprocess_and_compute(pimg, caffe_transformer=None, caffe_net=None,
     """
     Run a Caffe network on an input image after preprocessing it to prepare
     it for Caffe.
-    :param PIL.Image pimg:
-        PIL image to be input into Caffe.
+    :param opencv-image pimg:
+        Opencv image data.
     :param caffe.Net caffe_net:
         A Caffe network with which to process pimg afrer preprocessing.
     :param list output_layers:
@@ -80,7 +80,6 @@ def main(argv):
 
     args = parser.parse_args()
     image_data = cv2.imread(args.input_file)
-    
     
     # Pre-load caffe model.
     nsfw_net = caffe.Net(args.model_def,  # pylint: disable=invalid-name
