@@ -11,31 +11,8 @@ import sys
 import argparse
 import glob
 import time
-from PIL import Image
-from StringIO import StringIO
+import cv2
 import caffe
-
-
-def resize_image(data, sz=(256, 256)):
-    """
-    Resize image. Please use this resize logic for best results instead of the 
-    caffe, since it was used to generate training dataset 
-    :param str data:
-        The image data
-    :param sz tuple:
-        The resized image dimensions
-    :returns bytearray:
-        A byte array with the resized image
-    """
-    img_data = str(data)
-    im = Image.open(StringIO(img_data))
-    if im.mode != "RGB":
-        im = im.convert('RGB')
-    imr = im.resize(sz, resample=Image.BILINEAR)
-    fh_im = StringIO()
-    imr.save(fh_im, format='JPEG')
-    fh_im.seek(0)
-    return bytearray(fh_im.read())
 
 def caffe_preprocess_and_compute(pimg, caffe_transformer=None, caffe_net=None,
     output_layers=None):
@@ -59,14 +36,17 @@ def caffe_preprocess_and_compute(pimg, caffe_transformer=None, caffe_net=None,
         if output_layers is None:
             output_layers = caffe_net.outputs
 
-        img_data_rs = resize_image(pimg, sz=(256, 256))
-        image = caffe.io.load_image(StringIO(img_data_rs))
+        #repalce defined resize() by cv2.resize()
+        img_data_rs = cv2.resize(pimg,(256,256))
+        cv2.imwrite('temp.jpg',img_data_rs)
+        #img_data_rs = resize_image(pimg, sz=(256, 256))
+        image = caffe.io.load_image('temp.jpg')
 
         H, W, _ = image.shape
         _, _, h, w = caffe_net.blobs['data'].data.shape
-        h_off = max((H - h) / 2, 0)
-        w_off = max((W - w) / 2, 0)
-        crop = image[h_off:h_off + h, w_off:w_off + w, :]
+        h_off = int( max((H - h) / 2, 0) )
+        w_off = int( max((W - w) / 2, 0) )
+        crop = image[h_off:h_off + int(h), w_off:w_off + int(w), :]
         transformed_image = caffe_transformer.preprocess('data', crop)
         transformed_image.shape = (1,) + transformed_image.shape
 
@@ -101,8 +81,9 @@ def main(argv):
     )
 
     args = parser.parse_args()
-    image_data = open(args.input_file).read()
-
+    image_data = cv2.imread(args.input_file)
+    
+    
     # Pre-load caffe model.
     nsfw_net = caffe.Net(args.model_def,  # pylint: disable=invalid-name
         args.pretrained_model, caffe.TEST)
@@ -120,7 +101,7 @@ def main(argv):
 
     # Scores is the array containing SFW / NSFW image probabilities
     # scores[1] indicates the NSFW probability
-    print "NSFW score:  " , scores[1]
+    print( "NSFW score:  " , scores[1] )
 
 
 
